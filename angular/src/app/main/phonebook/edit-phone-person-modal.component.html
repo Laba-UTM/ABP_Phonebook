@@ -1,0 +1,84 @@
+<div bsModal #modal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form *ngIf="active" #phoneForm="ngForm" novalidate (ngSubmit)="save()">
+          <div class="modal-header">
+              <h4 class="modal-title">
+              <span>{{"EditPersonPhone" | localize}}</span>
+            </h4>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="close()"
+              [attr.aria-label]="l('Close')"
+              [disabled]="saving">
+            </button>      
+          </div>
+          <div class="modal-body">
+            
+              <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container">
+                  <p-table #dataTable
+                  [value]="phones">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th style="min-width: 150px">
+                                  {{ 'Action' | localize }}
+                              </th>
+                              <th style="min-width: 150px">
+                                {{ 'PhoneType' | localize }}         
+                            </th>
+                              <th style="min-width: 150px">
+                                  {{ 'Phone' | localize }}
+                              </th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-phone>
+                          <tr>
+                            <td style="min-width: 150px">
+                              <button id="deletePerson" (click)="deletePhone(phone)" title="{{'Delete' | localize}}" class="btn btn-danger btn-icon">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                              <td style="min-width: 150px">
+                                  <span class="p-column-title">{{ 'PhoneType' | localize }}</span>
+                                  {{ getPhoneTypeAsString(phone.type) }}
+                              </td>
+                              <td style="min-width: 150px">
+                                  <span class="p-column-title">{{ 'Number' | localize }}</span>
+                                  {{ phone.number }}
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+              </div>
+  
+              <div class="form-group">
+                <div class="row pt-4">
+                  <div class="col-md-6">
+                    <label>{{"Type" | localize}}</label>
+                    <select name="Type" [(ngModel)]="newPhone.type" class="form-control">
+                      <option value="0">{{"PhoneType_Mobile" | localize}}</option>
+                      <option value="1">{{"PhoneType_Home" | localize}}</option>
+                      <option value="2">{{"PhoneType_Business" | localize}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label>{{"Phone" | localize}}</label>
+                    <input type="text" name="number" [(ngModel)]="newPhone.number" class="form-control" />
+                  </div>
+                </div>
+              </div>
+  
+          </div>
+
+          <div class="modal-footer">
+            <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" | localize}}</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!phoneForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot' | localize)"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

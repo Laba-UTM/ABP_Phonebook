@@ -2,6 +2,14 @@
 <localizationDictionary culture="en">
   <texts>
     <text name="HomePage">Home page</text>
+	<text name="AreYouSureToDeleteThePerson">Are you sure to delete the person</text>
+	<text name="PhoneBook">Phone Book</text>
+	<text name="PhoneBookHeaderInfo">Phone book header info</text>
+	<text name="PhoneType_Mobile">Mobile phone</text>
+	<text name="PhoneType_Home">Home phone</text>
+	<text name="PhoneType_Business">Business phone</text>
+	<text name="AllPeople">All People</text>
+	<text name="CreateNewPerson">Create new person</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>
     <text name="Roles">Roles</text>

@@ -2,7 +2,8 @@
 <localizationDictionary culture="tr">
   <texts>
     <text name="HomePage">Ana sayfa</text>
-    <text name="AboutUs">Hakkımızda</text>
+	<text name="PhoneBook">Telefon Rehberi</text>
+	<text name="AboutUs">Hakkımızda</text>
     <text name="Administration">Yönetim</text>
     <text name="Roles">Roller</text>
     <text name="Users">Kullanıcılar</text>

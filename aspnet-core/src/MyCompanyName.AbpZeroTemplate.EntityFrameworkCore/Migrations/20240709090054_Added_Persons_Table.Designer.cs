@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240709090054_Added_Persons_Table")]
+    partial class Added_Persons_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2098,38 +2100,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.ToTable("PbPersons");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.PhoneBook.Phone", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("Type")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("PbPhones");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.Storage.BinaryObject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2449,17 +2419,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.PhoneBook.Phone", b =>
-                {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.PhoneBook.Person", "Person")
-                        .WithMany("Phones")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>
                 {
                     b.HasOne("Abp.Application.Editions.Edition", "Edition")
@@ -2531,11 +2490,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.PhoneBook.Person", b =>
-                {
-                    b.Navigation("Phones");
                 });
 #pragma warning restore 612, 618
         }

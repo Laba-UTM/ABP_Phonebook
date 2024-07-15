@@ -2,7 +2,8 @@
 <localizationDictionary culture="ru">
   <texts>
     <text name="HomePage">Главная страница</text>
-    <text name="AboutUs">О нас</text>
+	<text name="PhoneBook">Телефонная книжка</text>
+	<text name="AboutUs">О нас</text>
     <text name="Administration">Администрирование</text>
     <text name="Roles">Роли</text>
     <text name="Users">Пользователи</text>

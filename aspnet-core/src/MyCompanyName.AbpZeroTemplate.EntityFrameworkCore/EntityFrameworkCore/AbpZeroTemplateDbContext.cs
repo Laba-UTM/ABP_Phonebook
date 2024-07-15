@@ -10,6 +10,7 @@ using MyCompanyName.AbpZeroTemplate.Friendships;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy.Accounting;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments;
+using MyCompanyName.AbpZeroTemplate.PhoneBook;
 using MyCompanyName.AbpZeroTemplate.Storage;
 
 namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
@@ -37,6 +38,11 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
         
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
+
+        public virtual DbSet<Person> Persons { get; set; }
+
+        public virtual DbSet<Phone> Phones { get; set; }
+
 
         public AbpZeroTemplateDbContext(DbContextOptions<AbpZeroTemplateDbContext> options)
             : base(options)

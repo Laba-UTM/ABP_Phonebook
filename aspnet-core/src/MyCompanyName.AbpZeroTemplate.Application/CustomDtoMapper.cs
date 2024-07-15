@@ -39,6 +39,8 @@ using MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments.Dto;
 using MyCompanyName.AbpZeroTemplate.Notifications.Dto;
 using MyCompanyName.AbpZeroTemplate.Organizations.Dto;
+using MyCompanyName.AbpZeroTemplate.PhoneBook;
+using MyCompanyName.AbpZeroTemplate.PhoneBook.Dto;
 using MyCompanyName.AbpZeroTemplate.Sessions.Dto;
 using MyCompanyName.AbpZeroTemplate.WebHooks.Dto;
 
@@ -75,8 +77,6 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<RoleEditDto, Role>().ReverseMap();
             configuration.CreateMap<Role, RoleListDto>();
             configuration.CreateMap<UserRole, UserListRoleDto>();
-
-            
 
             //Edition
             configuration.CreateMap<EditionEditDto, SubscribableEdition>().ReverseMap();
@@ -162,6 +162,13 @@ namespace MyCompanyName.AbpZeroTemplate
             
             //User Delegations
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
+
+            // PhoneBook
+            configuration.CreateMap<Person, PersonListDto>();
+            configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreatePersonInput, Person>();
+            configuration.CreateMap<Person, GetPersonForEditOutput>();
+            configuration.CreateMap<Phone, PhoneInPersonListDto>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
         }
