@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using MyCompanyName.AbpZeroTemplate.Dto;
 using MyCompanyName.AbpZeroTemplate.Authorization.Users.Exporting;
 using MyCompanyName.AbpZeroTemplate.PhoneBook.Exporting;
+using MyCompanyName.AbpZeroTemplate.PhoneBook.Widget;
 
 namespace MyCompanyName.AbpZeroTemplate.PhoneBook
 {
@@ -29,17 +30,18 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
         private readonly IRepository<Person> _personRepository;
         private readonly IRepository<Phone,long> _phoneRepository;
         private readonly IPersonPhoneBookListExcellExporter _personsPhoneListExcelExporter;
-
+        private readonly BackgroungWorkerPhoneBook _backgroungWorkerPhoneBook;
 
         public PersonAppService(IRepository<Person> personRepository, IRepository<Phone, long> phoneRepository,
-            IPersonPhoneBookListExcellExporter personsPhoneListExcelExporter)
+            IPersonPhoneBookListExcellExporter personsPhoneListExcelExporter, BackgroungWorkerPhoneBook backgroungWorkerPhoneBook)
         {
             _personRepository = personRepository;
             _phoneRepository = phoneRepository; 
             _personsPhoneListExcelExporter = personsPhoneListExcelExporter;
+            _backgroungWorkerPhoneBook = backgroungWorkerPhoneBook;
         }
 
-        private IQueryable<Person> GetPersonsFilteredQuery(IGetPeopleInput input)
+        public IQueryable<Person> GetPersonsFilteredQuery(IGetPeopleInput input)
         {
             var query = _personRepository
                 .GetAll()
@@ -136,6 +138,7 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
             person.EmailAddress = input.EmailAddress;
             await _personRepository.UpdateAsync(person);
         }
+
         [AbpAuthorize(AppPermissions.Pages_Tenant_PhoneBook_EditPerson)]
         public async Task<List<PhoneInPersonListDto>> GetPersonPhones(EntityDto input) 
         {
@@ -143,6 +146,11 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
             var person = persons.FirstOrDefault(i=>i.Id == input.Id);
             var result = ObjectMapper.Map<List<PhoneInPersonListDto>>(person.Phones);
             return result;
+        }
+
+        public async Task<int> GetBackgroundWorkerValue()
+        {
+            return _backgroungWorkerPhoneBook.GetLatestNumber();
         }
     }
 }

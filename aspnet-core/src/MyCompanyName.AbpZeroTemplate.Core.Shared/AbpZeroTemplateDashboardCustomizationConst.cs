@@ -6,6 +6,8 @@
         /// Main page name your user will see if they dont change default page's name.
         /// </summary>
         public const string DefaultPageName = "Default Page";
+        public const string AdditionalPageName = "Additional Page";
+
 
         //Must use underscore instead of dot in widget and filter ids
         //(these data are also used as ids in the input in html pages. Please provide appropriate values.)
@@ -20,6 +22,8 @@
                 public const string RegionalStats = "Widgets_Tenant_RegionalStats";
                 public const string SalesSummary = "Widgets_Tenant_SalesSummary";
                 public const string TopStats = "Widgets_Tenant_TopStats";
+                public const string PhoneBook = "Widgets_Tenant_PhoneBook";
+
             }
 
             public class Host
@@ -35,6 +39,7 @@
         public class Filters
         {
             public const string FilterDateRangePicker = "Filters_DateRangePicker";
+            public const string HelloWorldFilter = "Filters_HelloWorld";
         }
 
         public class DashboardNames

@@ -30,6 +30,8 @@ import { CountoModule } from 'angular2-counto';
 import { TableModule } from 'primeng/table';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SubheaderModule } from '../sub-header/subheader.module';
+import { FilterHelloWorldComponent } from './filters/filter-hello-world/filter-hello-world.component';
+import {WidgetPhoneBookComponent} from './widgets/widget-phone-book/widget-phone-book.component';
 
 @NgModule({
     imports: [
@@ -69,6 +71,8 @@ import { SubheaderModule } from '../sub-header/subheader.module';
         FilterDateRangePickerComponent,
         AddWidgetModalComponent,
         WidgetComponentBaseComponent,
+        FilterHelloWorldComponent,
+        WidgetPhoneBookComponent,
     ],
 
     providers: [DashboardViewConfigurationService],
@@ -89,6 +93,8 @@ import { SubheaderModule } from '../sub-header/subheader.module';
         WidgetTopStatsComponent,
         FilterDateRangePickerComponent,
         AddWidgetModalComponent,
+        FilterHelloWorldComponent,
+        WidgetPhoneBookComponent,
     ],
 })
 export class CustomizableDashboardModule {}

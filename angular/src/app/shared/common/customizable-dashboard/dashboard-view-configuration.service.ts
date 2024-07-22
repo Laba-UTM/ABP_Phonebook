@@ -14,6 +14,8 @@ import { WidgetSubscriptionExpiringTenantsComponent } from './widgets/widget-sub
 import { WidgetHostTopStatsComponent } from './widgets/widget-host-top-stats/widget-host-top-stats.component';
 import { FilterDateRangePickerComponent } from './filters/filter-date-range-picker/filter-date-range-picker.component';
 import { WidgetTopStatsComponent } from './widgets/widget-top-stats/widget-top-stats.component';
+import { FilterHelloWorldComponent } from './filters/filter-hello-world/filter-hello-world.component';
+import {WidgetPhoneBookComponent} from './widgets/widget-phone-book/widget-phone-book.component';
 
 @Injectable({
     providedIn: 'root',
@@ -31,8 +33,16 @@ export class DashboardViewConfigurationService {
             DashboardCustomizationConst.filters.filterDateRangePicker,
             FilterDateRangePickerComponent
         );
+
+        let filterHelloWorld = new WidgetFilterViewDefinition(
+            DashboardCustomizationConst.filters.filterHelloWorld,
+            FilterHelloWorldComponent//the component of filter
+        );
+
         //add your filters here
         this.widgetFilterDefinitions.push(filterDateRangePicker);
+        this.widgetFilterDefinitions.push(filterHelloWorld);
+
 
         let generalStats = new WidgetViewDefinition(
             DashboardCustomizationConst.widgets.tenant.generalStats,
@@ -96,6 +106,11 @@ export class DashboardViewConfigurationService {
             DashboardCustomizationConst.widgets.host.topStats,
             WidgetHostTopStatsComponent
         );
+
+        let phoneBook = new WidgetViewDefinition(
+            DashboardCustomizationConst.widgets.tenant.phoneBook,
+            WidgetPhoneBookComponent,
+          )
         //add your host side widgets here
 
         this.WidgetViewDefinitions.push(generalStats);
@@ -110,5 +125,6 @@ export class DashboardViewConfigurationService {
         this.WidgetViewDefinitions.push(recentTenants);
         this.WidgetViewDefinitions.push(subscriptionExpiringTenants);
         this.WidgetViewDefinitions.push(hostTopStats);
+        this.WidgetViewDefinitions.push(phoneBook);  
     }
 }

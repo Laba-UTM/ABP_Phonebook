@@ -20,5 +20,9 @@ namespace MyCompanyName.AbpZeroTemplate.Tenants.Dashboard
         GetRegionalStatsOutput GetRegionalStats();
 
         GetGeneralStatsOutput GetGeneralStats();
+
+        GetHelloWorldOutput GetHelloWorldData(GetHelloWorldInput input);
+
+        GetPhoneBookOutput GetPhoneBookPerson(GetPhoneBookInput input);
     }
 }

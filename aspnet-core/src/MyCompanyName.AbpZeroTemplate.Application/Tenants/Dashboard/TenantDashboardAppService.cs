@@ -1,7 +1,14 @@
 ﻿using Abp.Auditing;
 using Abp.Authorization;
+using Abp.Timing;
 using MyCompanyName.AbpZeroTemplate.Authorization;
+using MyCompanyName.AbpZeroTemplate.Authorization.Accounts.Dto;
+using MyCompanyName.AbpZeroTemplate.PhoneBook;
+using MyCompanyName.AbpZeroTemplate.PhoneBook.Dto;
 using MyCompanyName.AbpZeroTemplate.Tenants.Dashboard.Dto;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 
 namespace MyCompanyName.AbpZeroTemplate.Tenants.Dashboard
 {
@@ -9,6 +16,12 @@ namespace MyCompanyName.AbpZeroTemplate.Tenants.Dashboard
     [AbpAuthorize(AppPermissions.Pages_Tenant_Dashboard)]
     public class TenantDashboardAppService : AbpZeroTemplateAppServiceBase, ITenantDashboardAppService
     {
+        private readonly PersonAppService _personAppService;
+        public TenantDashboardAppService(PersonAppService personAppService)
+        {
+            _personAppService = personAppService;
+        }
+
         public GetMemberActivityOutput GetMemberActivity()
         {
             return new GetMemberActivityOutput
@@ -94,6 +107,63 @@ namespace MyCompanyName.AbpZeroTemplate.Tenants.Dashboard
                 NewVisitPercent = DashboardRandomDataGenerator.GetRandomInt(10, 100),
                 BouncePercent = DashboardRandomDataGenerator.GetRandomInt(10, 100)
             };
+        }
+
+        public GetHelloWorldOutput GetHelloWorldData(GetHelloWorldInput input)
+        {
+            return new GetHelloWorldOutput()
+            {
+                OutPutName = "Hello " + input.Name + " (" + Clock.Now.Millisecond + ")"
+            };
+        }
+
+        public GetPhoneBookOutput GetPhoneBookPerson(GetPhoneBookInput input) 
+        {
+            var people = _personAppService.GetPersonsFilteredQuery(new GetPeopleInput() { Filter = input.Filter });
+            Person person = people.FirstOrDefault();
+            if (person != null)
+            {
+                List<PhoneInPersonListDto> business = new List<PhoneInPersonListDto>();
+                List<PhoneInPersonListDto> mobile = new List<PhoneInPersonListDto>();
+                List<PhoneInPersonListDto> home = new List<PhoneInPersonListDto>();
+
+                foreach (var phone in person.Phones)
+                {
+                    switch (phone.Type)
+                    {
+                        case PhoneType.Business: 
+                            business.Add(new PhoneInPersonListDto
+                        {
+                            Type = PhoneType.Business,
+                            Number = phone.Number
+                        }); 
+                            break;
+                        case PhoneType.Mobile:
+                            mobile.Add(new PhoneInPersonListDto
+                            {
+                                Type = PhoneType.Mobile,
+                                Number = phone.Number
+                            }); 
+                            break;
+                        case PhoneType.Home:
+                            home.Add(new PhoneInPersonListDto
+                            {
+                                Type = PhoneType.Home,
+                                Number = phone.Number
+                            }); 
+                            break;
+                    }
+                }
+
+                return new GetPhoneBookOutput()
+                {
+                    Name = person.Name,
+                    BusinessPhones = business,
+                    MobilePhones = mobile,  
+                    HomePhones = home
+                };
+            }
+            else return new GetPhoneBookOutput() { }; 
         }
     }
 }

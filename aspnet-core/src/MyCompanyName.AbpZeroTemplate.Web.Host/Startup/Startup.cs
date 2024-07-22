@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -45,6 +45,9 @@ using Owl.reCAPTCHA;
 using HealthChecksUISettings = HealthChecks.UI.Configuration.Settings;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using MyCompanyName.AbpZeroTemplate.Web.MultiTenancy;
+using MyCompanyName.AbpZeroTemplate.PhoneBook.Widget;
+using Hangfire.Common;
+using MyCompanyName.AbpZeroTemplate.PhoneBook;
 
 namespace MyCompanyName.AbpZeroTemplate.Web.Startup
 {
@@ -74,6 +77,12 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Startup
                 .AddNewtonsoftJson();
 
             services.AddSignalR();
+
+            // Added background worker for Widget PhoneBook
+            services.AddSingleton<BackgroungWorkerPhoneBook>();
+            // Added background worker for CSV FILES
+            services.AddSingleton<BackgroundWorkerHandleCSVFiles>();
+            services.AddTransient<IDepartmentAppService, DepartmentAppService>();
 
             //Configure CORS for angular2 UI
             services.AddCors(options =>
@@ -184,7 +193,8 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Startup
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, 
+                                                                            IHostApplicationLifetime appLifetime)
         {
             //Initializes ABP framework.
             app.UseAbp(options =>
@@ -241,6 +251,22 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Startup
                     Authorization = new[]
                         {new AbpHangfireAuthorizationFilter(AppPermissions.Pages_Administration_HangfireDashboard)}
                 });
+
+                // Регистрация задачи в Hangfire
+                var backgroundJobClient = app.ApplicationServices.GetRequiredService<IBackgroundJobClient>();
+                var recurringJobManager = app.ApplicationServices.GetRequiredService<IRecurringJobManager>();
+
+                /*recurringJobManager.AddOrUpdate(
+                    "phonebook-job",
+                    Job.FromExpression<BackgroungWorkerPhoneBook>(x => x.Execute()),
+                    Cron.MinuteInterval(1)
+                );*/
+
+                recurringJobManager.AddOrUpdate(
+                    "csvFiles-job",
+                    Job.FromExpression<BackgroundWorkerHandleCSVFiles>(x => x.Execute()),
+                    Cron.MinuteInterval(15)
+                );
             }
 
             if (bool.Parse(_appConfiguration["Payment:Stripe:IsActive"]))
@@ -274,7 +300,7 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Startup
                         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                     });
                 }
-                
+
                 app.ApplicationServices.GetRequiredService<IAbpAspNetCoreConfiguration>().EndpointConfiguration.ConfigureAllEndpoints(endpoints);
             });
 

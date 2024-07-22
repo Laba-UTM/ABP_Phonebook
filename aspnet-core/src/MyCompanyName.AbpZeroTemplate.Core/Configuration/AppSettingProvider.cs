@@ -702,6 +702,40 @@ namespace MyCompanyName.AbpZeroTemplate.Configuration
                                 Width = 5,
                                 PositionX = 7,
                                 PositionY = 6
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 35
+                            }
+                        }
+                    },
+                    new Page
+                    {
+                        Name = AbpZeroTemplateDashboardCustomizationConsts.AdditionalPageName,
+                        Widgets = new List<Widget>
+                        {
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 0
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .ProfitShare, // Profit Share
+                                Height = 10,
+                                Width = 7,
+                                PositionX = 5,
+                                PositionY = 0
                             }
                         }
                     }
@@ -785,6 +819,40 @@ namespace MyCompanyName.AbpZeroTemplate.Configuration
                                 Width = 6,
                                 PositionX = 0,
                                 PositionY = 5
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 35
+                            }
+                        }
+                    },
+                    new Page
+                    {
+                        Name = AbpZeroTemplateDashboardCustomizationConsts.AdditionalPageName,
+                        Widgets = new List<Widget>
+                        {
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 0
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .ProfitShare, // Profit Share
+                                Height = 10,
+                                Width = 7,
+                                PositionX = 5,
+                                PositionY = 0
                             }
                         }
                     }
@@ -851,6 +919,40 @@ namespace MyCompanyName.AbpZeroTemplate.Configuration
                                 Width = 5,
                                 PositionX = 7,
                                 PositionY = 5
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 35
+                            }
+                        }
+                    },
+                    new Page
+                    {
+                        Name = AbpZeroTemplateDashboardCustomizationConsts.AdditionalPageName,
+                        Widgets = new List<Widget>
+                        {
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 0
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .ProfitShare, // Profit Share
+                                Height = 10,
+                                Width = 7,
+                                PositionX = 5,
+                                PositionY = 0
                             }
                         }
                     }
@@ -934,6 +1036,40 @@ namespace MyCompanyName.AbpZeroTemplate.Configuration
                                 Width = 6,
                                 PositionX = 6,
                                 PositionY = 24
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 35
+                            }
+                        }
+                    },
+                    new Page
+                    {
+                        Name = AbpZeroTemplateDashboardCustomizationConsts.AdditionalPageName,
+                        Widgets = new List<Widget>
+                        {
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .PhoneBook,
+                                Height = 11,
+                                Width = 5,
+                                PositionX = 0,
+                                PositionY = 0
+                            },
+                            new Widget
+                            {
+                                WidgetId = AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant
+                                    .ProfitShare, // Profit Share
+                                Height = 10,
+                                Width = 7,
+                                PositionX = 5,
+                                PositionY = 0
                             }
                         }
                     }

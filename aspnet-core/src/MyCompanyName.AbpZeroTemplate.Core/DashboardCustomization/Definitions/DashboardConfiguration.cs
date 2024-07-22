@@ -28,6 +28,11 @@ namespace MyCompanyName.AbpZeroTemplate.DashboardCustomization.Definitions
 
             // Add your filters here
 
+            var helloWorldFilter = new WidgetFilterDefinition(
+            AbpZeroTemplateDashboardCustomizationConsts.Filters.HelloWorldFilter, "FilterHelloWorld");//localized string key
+
+            WidgetFilterDefinitions.Add(helloWorldFilter);
+
             #endregion
 
             #region WidgetDefinitions
@@ -93,6 +98,15 @@ namespace MyCompanyName.AbpZeroTemplate.DashboardCustomization.Definitions
                 permissionDependency: simplePermissionDependencyForTenantDashboard
             );
 
+            var phoneBook = new WidgetDefinition(
+                id: AbpZeroTemplateDashboardCustomizationConsts.Widgets.Tenant.PhoneBook,
+                name: "WidgetPhoneBook",//localized string key
+                side: MultiTenancySides.Tenant,
+                usedWidgetFilters: new List<string>() { helloWorldFilter.Id },// you can use any filter you need
+                permissionDependency: simplePermissionDependencyForTenantDashboard
+            );
+           
+
             WidgetDefinitions.Add(generalStats);
             WidgetDefinitions.Add(dailySales);
             WidgetDefinitions.Add(profitShare);
@@ -100,6 +114,7 @@ namespace MyCompanyName.AbpZeroTemplate.DashboardCustomization.Definitions
             WidgetDefinitions.Add(regionalStats);
             WidgetDefinitions.Add(topStats);
             WidgetDefinitions.Add(salesSummary);
+            WidgetDefinitions.Add(phoneBook);
             // Add your tenant side widgets here
 
             #endregion
@@ -163,7 +178,7 @@ namespace MyCompanyName.AbpZeroTemplate.DashboardCustomization.Definitions
                 AbpZeroTemplateDashboardCustomizationConsts.DashboardNames.DefaultTenantDashboard,
                 new List<string>
                 {
-                    generalStats.Id, dailySales.Id, profitShare.Id, memberActivity.Id, regionalStats.Id, topStats.Id, salesSummary.Id
+                    generalStats.Id, dailySales.Id, profitShare.Id, memberActivity.Id, regionalStats.Id, topStats.Id, salesSummary.Id, phoneBook.Id
                 });
 
             DashboardDefinitions.Add(defaultTenantDashboard);

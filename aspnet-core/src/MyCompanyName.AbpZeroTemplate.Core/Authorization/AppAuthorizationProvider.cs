@@ -98,6 +98,8 @@ namespace MyCompanyName.AbpZeroTemplate.Authorization
 
             pages.CreateChildPermission(AppPermissions.Pages_Tenant_Dashboard, L("Dashboard"), multiTenancySides: MultiTenancySides.Tenant);
 
+            pages.CreateChildPermission(AppPermissions.PhoneBookHomePhonesPermission, L("DashboardPhoneBookHome"), multiTenancySides: MultiTenancySides.Tenant);
+
             var phoneBook = pages.CreateChildPermission(AppPermissions.Pages_Tenant_PhoneBook, L("PhoneBook"), multiTenancySides: MultiTenancySides.Tenant);
             phoneBook.CreateChildPermission(AppPermissions.Pages_Tenant_PhoneBook_CreatePerson, L("CreateNewPerson"), multiTenancySides: MultiTenancySides.Tenant);
             phoneBook.CreateChildPermission(AppPermissions.Pages_Tenant_PhoneBook_DeletePerson, L("DeleteCurrentPerson"), multiTenancySides: MultiTenancySides.Tenant);

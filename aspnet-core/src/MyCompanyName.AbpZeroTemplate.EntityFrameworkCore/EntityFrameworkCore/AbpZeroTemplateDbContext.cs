@@ -43,6 +43,8 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
 
         public virtual DbSet<Phone> Phones { get; set; }
 
+        public virtual DbSet<Department> Departments { get; set; }
+
 
         public AbpZeroTemplateDbContext(DbContextOptions<AbpZeroTemplateDbContext> options)
             : base(options)

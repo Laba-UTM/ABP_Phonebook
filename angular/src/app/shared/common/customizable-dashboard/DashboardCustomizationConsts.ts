@@ -8,6 +8,7 @@ export class DashboardCustomizationConst {
             topStats: 'Widgets_Tenant_TopStats',
             generalStats: 'Widgets_Tenant_GeneralStats',
             dailySales: 'Widgets_Tenant_DailySales',
+            phoneBook: "Widgets_Tenant_PhoneBook",
         },
         host: {
             topStats: 'Widgets_Host_TopStats',
@@ -19,6 +20,7 @@ export class DashboardCustomizationConst {
     };
     static filters = {
         filterDateRangePicker: 'Filters_DateRangePicker',
+        filterHelloWorld: "Filters_HelloWorld"
     };
     static dashboardNames = {
         defaultTenantDashboard: 'TenantDashboard',

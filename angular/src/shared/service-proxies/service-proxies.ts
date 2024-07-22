@@ -9136,6 +9136,69 @@ export class PersonServiceProxy {
     }
 
     /**
+     * @param filter (optional) 
+     * @return Success
+     */
+    getPersonsFilteredQuery(filter: string | undefined): Observable<Person[]> {
+        let url_ = this.baseUrl + "/api/services/app/Person/GetPersonsFilteredQuery?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPersonsFilteredQuery(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPersonsFilteredQuery(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Person[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Person[]>;
+        }));
+    }
+
+    protected processGetPersonsFilteredQuery(response: HttpResponseBase): Observable<Person[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Person.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param body (optional) 
      * @return Success
      */
@@ -9638,6 +9701,58 @@ export class PersonServiceProxy {
             else {
                 result200 = <any>null;
             }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getBackgroundWorkerValue(): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/Person/GetBackgroundWorkerValue";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBackgroundWorkerValue(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBackgroundWorkerValue(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<number>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<number>;
+        }));
+    }
+
+    protected processGetBackgroundWorkerValue(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -12150,6 +12265,118 @@ export class TenantDashboardServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = GetGeneralStatsOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param name (optional) 
+     * @return Success
+     */
+    getHelloWorldData(name: string | undefined): Observable<GetHelloWorldOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TenantDashboard/GetHelloWorldData?";
+        if (name === null)
+            throw new Error("The parameter 'name' cannot be null.");
+        else if (name !== undefined)
+            url_ += "Name=" + encodeURIComponent("" + name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHelloWorldData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHelloWorldData(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetHelloWorldOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetHelloWorldOutput>;
+        }));
+    }
+
+    protected processGetHelloWorldData(response: HttpResponseBase): Observable<GetHelloWorldOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetHelloWorldOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @return Success
+     */
+    getPhoneBookPerson(filter: string | undefined): Observable<GetPhoneBookOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TenantDashboard/GetPhoneBookPerson?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPhoneBookPerson(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPhoneBookPerson(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetPhoneBookOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetPhoneBookOutput>;
+        }));
+    }
+
+    protected processGetPhoneBookPerson(response: HttpResponseBase): Observable<GetPhoneBookOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetPhoneBookOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -20790,6 +21017,42 @@ export interface IGetGeneralStatsOutput {
     bouncePercent: number;
 }
 
+export class GetHelloWorldOutput implements IGetHelloWorldOutput {
+    outPutName!: string | undefined;
+
+    constructor(data?: IGetHelloWorldOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.outPutName = _data["outPutName"];
+        }
+    }
+
+    static fromJS(data: any): GetHelloWorldOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetHelloWorldOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["outPutName"] = this.outPutName;
+        return data;
+    }
+}
+
+export interface IGetHelloWorldOutput {
+    outPutName: string | undefined;
+}
+
 export class GetIncomeStatisticsDataOutput implements IGetIncomeStatisticsDataOutput {
     incomeStatistics!: IncomeStastistic[] | undefined;
 
@@ -21316,6 +21579,78 @@ export interface IGetPersonForEditOutput {
     name: string;
     surname: string;
     emailAddress: string | undefined;
+}
+
+export class GetPhoneBookOutput implements IGetPhoneBookOutput {
+    name!: string | undefined;
+    businessPhones!: PhoneInPersonListDto[] | undefined;
+    mobilePhones!: PhoneInPersonListDto[] | undefined;
+    homePhones!: PhoneInPersonListDto[] | undefined;
+
+    constructor(data?: IGetPhoneBookOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            if (Array.isArray(_data["businessPhones"])) {
+                this.businessPhones = [] as any;
+                for (let item of _data["businessPhones"])
+                    this.businessPhones!.push(PhoneInPersonListDto.fromJS(item));
+            }
+            if (Array.isArray(_data["mobilePhones"])) {
+                this.mobilePhones = [] as any;
+                for (let item of _data["mobilePhones"])
+                    this.mobilePhones!.push(PhoneInPersonListDto.fromJS(item));
+            }
+            if (Array.isArray(_data["homePhones"])) {
+                this.homePhones = [] as any;
+                for (let item of _data["homePhones"])
+                    this.homePhones!.push(PhoneInPersonListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetPhoneBookOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPhoneBookOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        if (Array.isArray(this.businessPhones)) {
+            data["businessPhones"] = [];
+            for (let item of this.businessPhones)
+                data["businessPhones"].push(item.toJSON());
+        }
+        if (Array.isArray(this.mobilePhones)) {
+            data["mobilePhones"] = [];
+            for (let item of this.mobilePhones)
+                data["mobilePhones"].push(item.toJSON());
+        }
+        if (Array.isArray(this.homePhones)) {
+            data["homePhones"] = [];
+            for (let item of this.homePhones)
+                data["homePhones"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IGetPhoneBookOutput {
+    name: string | undefined;
+    businessPhones: PhoneInPersonListDto[] | undefined;
+    mobilePhones: PhoneInPersonListDto[] | undefined;
+    homePhones: PhoneInPersonListDto[] | undefined;
 }
 
 export class GetProfilePictureOutput implements IGetProfilePictureOutput {
@@ -25904,6 +26239,94 @@ export enum PaymentPeriodType {
     Annual = 365,
 }
 
+export class Person implements IPerson {
+    name!: string;
+    surname!: string;
+    emailAddress!: string | undefined;
+    phones!: Phone[] | undefined;
+    isDeleted!: boolean;
+    deleterUserId!: number | undefined;
+    deletionTime!: DateTime | undefined;
+    lastModificationTime!: DateTime | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: DateTime;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IPerson) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.surname = _data["surname"];
+            this.emailAddress = _data["emailAddress"];
+            if (Array.isArray(_data["phones"])) {
+                this.phones = [] as any;
+                for (let item of _data["phones"])
+                    this.phones!.push(Phone.fromJS(item));
+            }
+            this.isDeleted = _data["isDeleted"];
+            this.deleterUserId = _data["deleterUserId"];
+            this.deletionTime = _data["deletionTime"] ? DateTime.fromISO(_data["deletionTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? DateTime.fromISO(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): Person {
+        data = typeof data === 'object' ? data : {};
+        let result = new Person();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["surname"] = this.surname;
+        data["emailAddress"] = this.emailAddress;
+        if (Array.isArray(this.phones)) {
+            data["phones"] = [];
+            for (let item of this.phones)
+                data["phones"].push(item.toJSON());
+        }
+        data["isDeleted"] = this.isDeleted;
+        data["deleterUserId"] = this.deleterUserId;
+        data["deletionTime"] = this.deletionTime ? this.deletionTime.toString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IPerson {
+    name: string;
+    surname: string;
+    emailAddress: string | undefined;
+    phones: Phone[] | undefined;
+    isDeleted: boolean;
+    deleterUserId: number | undefined;
+    deletionTime: DateTime | undefined;
+    lastModificationTime: DateTime | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: DateTime;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
 export class PersonListDto implements IPersonListDto {
     name!: string | undefined;
     surname!: string | undefined;
@@ -25987,6 +26410,66 @@ export interface IPersonListDto {
     deletionTime: DateTime | undefined;
     lastModificationTime: DateTime | undefined;
     lastModifierUserId: number | undefined;
+    creationTime: DateTime;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class Phone implements IPhone {
+    person!: Person;
+    personId!: number;
+    type!: PhoneType;
+    number!: string;
+    creationTime!: DateTime;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IPhone) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.person = _data["person"] ? Person.fromJS(_data["person"]) : <any>undefined;
+            this.personId = _data["personId"];
+            this.type = _data["type"];
+            this.number = _data["number"];
+            this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): Phone {
+        data = typeof data === 'object' ? data : {};
+        let result = new Phone();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["person"] = this.person ? this.person.toJSON() : <any>undefined;
+        data["personId"] = this.personId;
+        data["type"] = this.type;
+        data["number"] = this.number;
+        data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IPhone {
+    person: Person;
+    personId: number;
+    type: PhoneType;
+    number: string;
     creationTime: DateTime;
     creatorUserId: number | undefined;
     id: number;

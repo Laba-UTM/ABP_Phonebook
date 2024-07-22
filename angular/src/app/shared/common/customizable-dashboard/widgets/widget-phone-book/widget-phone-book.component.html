@@ -1,0 +1,68 @@
+<div class="card card-custom">
+    <div class="card-header align-items-center border-0">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="fw-bolder text-dark">Phone Book</span>
+        </h3>
+    </div>
+
+    <h1 style="color:red; margin-left: 100px;">Changing value: {{changingValue}}</h1>
+
+
+    <div class="ms-4 me-4 d-flex align-items-center">
+        <h2 *ngIf="phoneBook && phoneBook.name; else noUser" class="mb-0 me-2">{{ phoneBook.name }}</h2>
+        <div class="input-group mb-3">
+            <input [(ngModel)]="filter" name="filterText" autofocus class="form-control"
+                [placeholder]="l('SearchWithThreeDot' | localize)" type="text">
+            <button (click)="getPhoneBookPerson()" class="btn btn-primary" type="submit">
+                <i class="flaticon-search-1"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="card-body" [perfectScrollbar]>
+        <ng-container>
+            <h3>Business Phones</h3>
+            <ul>
+                <ng-container *ngIf="getPhones('business'); else noBusinessPhones">
+                    <li *ngFor="let phone of getPhones('business')">
+                        {{ phone.number }}
+                    </li>
+                </ng-container>
+            </ul>
+
+            <h3>Mobile Phones</h3>
+            <ul>
+                <ng-container *ngIf="getPhones('mobile'); else noMobilePhones">
+                    <li *ngFor="let phone of getPhones('mobile')">
+                        {{ phone.number }}
+                    </li>
+                </ng-container>
+            </ul>
+
+            <ng-container *ngIf="'Pages.Tenant.Dashbord.PhoneBook.HomePhones' | permission">
+                <h3>Home Phones</h3>
+                <ul>
+                    <ng-container *ngIf="getPhones('home'); else noHomePhones">
+                        <li *ngFor="let phone of getPhones('home')">
+                            {{ phone.number }}
+                        </li>
+                    </ng-container>
+                </ul>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #noUser>
+            <h2>No user</h2>
+        </ng-template>
+        <ng-template #noBusinessPhones>
+            <li>No business phones</li>
+        </ng-template>
+        <ng-template #noMobilePhones>
+            <li>No mobile phones</li>
+        </ng-template>
+        <ng-template #noHomePhones>
+            <li>No home phones</li>
+        </ng-template>
+    </div>
+
+</div>

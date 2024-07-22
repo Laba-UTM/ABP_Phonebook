@@ -170,6 +170,10 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<Person, GetPersonForEditOutput>();
             configuration.CreateMap<Phone, PhoneInPersonListDto>();
 
+            configuration.CreateMap<DepartmentDto, Department>();
+            configuration.CreateMap<Department, DepartmentDto>();
+
+
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
         }
     }

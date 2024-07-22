@@ -1,7 +1,10 @@
 ﻿using Abp.AutoMapper;
+using Abp.Dependency;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
+using Abp.Threading.BackgroundWorkers;
 using MyCompanyName.AbpZeroTemplate.Authorization;
+using MyCompanyName.AbpZeroTemplate.PhoneBook.Widget;
 
 namespace MyCompanyName.AbpZeroTemplate
 {
@@ -21,6 +24,11 @@ namespace MyCompanyName.AbpZeroTemplate
 
             //Adding custom AutoMapper configuration
             Configuration.Modules.AbpAutoMapper().Configurators.Add(CustomDtoMapper.CreateMappings);
+
+            // Adding backgroundWorker for Widget PhoneBook
+            Configuration.BackgroundJobs.IsJobExecutionEnabled = true;
+            IocManager.Register<BackgroungWorkerPhoneBook, BackgroungWorkerPhoneBook>(DependencyLifeStyle.Singleton);
+            IocManager.Register<BackgroundWorkerHandleCSVFiles, BackgroundWorkerHandleCSVFiles>(DependencyLifeStyle.Singleton);
         }
 
         public override void Initialize()
