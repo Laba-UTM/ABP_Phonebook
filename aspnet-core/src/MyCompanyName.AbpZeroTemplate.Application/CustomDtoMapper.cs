@@ -172,6 +172,9 @@ namespace MyCompanyName.AbpZeroTemplate
 
             configuration.CreateMap<DepartmentDto, Department>();
             configuration.CreateMap<Department, DepartmentDto>();
+            configuration.CreateMap<DepartmentDto, DepartmentDtoCSVReader>();
+            configuration.CreateMap<DepartmentDtoCSVReader, DepartmentDto>();
+
 
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */

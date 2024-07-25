@@ -6,7 +6,7 @@
 
         public const string ConnectionStringName = "Default";
 
-        public const bool MultiTenancyEnabled = false;
+        public const bool MultiTenancyEnabled = true;
         
         /// <summary>
         /// Redirects users to host URL when using subdomain as tenancy name for not existing tenants

@@ -4,6 +4,7 @@ using MyCompanyName.AbpZeroTemplate.PhoneBook.Dto;
 using NUglify.Helpers;
 using Stripe;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
                     Department {
                         DeptNumber = department.DeptNumber,
                         DeptName = department.DeptName,
-                        CreatedDate = department.CreatedDate
+                        CreatedDate = department.CreatedDateFinal
             });
         }
 
@@ -40,7 +41,7 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
             }
 
             actualDepartment.DeptName = department.DeptName;
-            actualDepartment.CreatedDate = department.CreatedDate;
+            actualDepartment.CreatedDate = department.CreatedDateFinal;
 
             _departmentRepository.Update(actualDepartment);
         }
@@ -61,6 +62,43 @@ namespace MyCompanyName.AbpZeroTemplate.PhoneBook
                 return departmentDto;
             }
             else return null;
+        }
+
+        public void AddRangeDepartment(IEnumerable<DepartmentDto> departmentDtos) 
+        {
+            foreach (var dep in departmentDtos)
+            {
+                _departmentRepository.Insert(new
+                    Department
+                {
+                    DeptNumber = dep.DeptNumber,
+                    DeptName = dep.DeptName,
+                    CreatedDate = dep.CreatedDateFinal
+                });
+            }
+            var all = GetDepartments();
+        }
+        public void UpdateRangeDepartment(IEnumerable<DepartmentDto> departmentDtos)
+        {
+            foreach (var dep in departmentDtos)
+            {
+                var currentDepartment = _departmentRepository.FirstOrDefault(n => n.DeptNumber == dep.DeptNumber);
+
+                if (currentDepartment == null)
+                {
+                    throw new Exception($"Department with ID {currentDepartment.DeptNumber} not found.");
+                }
+
+                currentDepartment.DeptName = dep.DeptName;
+                currentDepartment.CreatedDate = dep.CreatedDateFinal;
+
+                _departmentRepository.Update(currentDepartment);
+            }
+        }
+
+        public List<DepartmentDto> MapDepCSVToDep(List<DepartmentDtoCSVReader> depCSV) 
+        {
+            return ObjectMapper.Map<List<DepartmentDto>>(depCSV);
         }
     }
 }
